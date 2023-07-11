@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="icon" href="./img/hihi.png">
+    <title>Ahihi</title>
+</head>
+<body>
+  
+  <!-- Button trigger modal -->
+    <div class="buttonContainer">
+        <svg class="effect" width="486" height="174" viewBox="0 0 486 174">
+          <defs>
+            <clipPath id="theClip">
+              <path d="m 102,35 h 276 c 28.808,0 52,23.192 52,52 0,28.808 -23.192,52
+                  -52,52 H 102 C 73.192002,139 50,115.808 50,87 50,58.192 73.192002,35
+                  102,35 Z" />
+            </clipPath>
+          </defs>
+          <path style="fill: #e2e0de" d="m 102,35 h 276 c 28.808,0 52,23.192 52,52 0,28.808 -23.192,52
+              -52,52 H 102 C 73.192002,139 50,115.808 50,87 50,58.192 73.192002,35
+              102,35 Z" />
+          <g clip-path="url(#theClip)">
+            <g class="sprites">
+              <circle class="sprite1" cx="0" cy="0" r="70" />
+              <circle class="sprite1" fill="none" stroke="#000" stroke-width="1" cx="0" cy="0" r="70" />
+              <circle class="sprite2" cx="0" cy="0" r="50" />
+              <circle class="sprite2" fill="none" stroke="#000" stroke-width="1" cx="0" cy="0" r="50" />
+              <circle class="sprite3" cx="0" cy="0" r="30" />
+              <circle class="sprite3" fill="none" stroke="#000" stroke-width="1" cx="0" cy="0" r="30" />
+              <circle class="sprite4" cx="0" cy="0" r="10" />
+              <circle class="sprite4" fill="none" stroke="#000" stroke-width="1" cx="0" cy="0" r="10" />
+            </g>
+          </g>
+          <path style="fill: #123f98" d="m 102,45 h 276 c 23.268,0 42,18.732 42,42 0,23.268 -18.732,42 -42,42 H 102 C 78.732002,129 60,110.268 60,87 60,63.732 78.732002,45 102,45 Z" />
+        </svg>
+        <button id="click" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Click me!</button>
+      </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: bisque;">
+        <h1 style="text-align: center; padding: 20px 20px 0 20px;">A Quote For You</h1>
+        <p id="datetime" style="text-align: center;"></p>
+        <h1 id="quote" class="modal-title fs-5" style="text-align: center; padding: 20px; font-style: italic;"></h1>
+        <p style="text-align: center;" id="author"></p>
+        <div class="click" style="align-items: right;">
+          <button style="margin: 20px 0 20px 20px;" class="btn btn-danger" onclick="location.reload()">Close</button>
+          <button style="margin: 20px;" class="btn btn-primary" onclick="window.open('m.me/ahihi.mem')">Send me a message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    document.getElementById("datetime").innerHTML = time + " " + date;
+    console.log(date, time)
+    var category = 'happiness'
+    $.ajax({
+        method: 'GET',
+        url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
+        headers: { 'X-Api-Key': '0sgr6DY4Ac5rGfWAly+Otg==NCyXx7dK1rePnR9U'},
+        contentType: 'application/json',
+        success: function(result) {
+          let data = result[0].quote;
+          let author = result[0].author;
+          document.getElementById("quote").innerHTML = data;
+          document.getElementById("author").innerHTML = author;
+          console.log(data);
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+        
+    });
+
+  </script>
+</body>
+</html>
